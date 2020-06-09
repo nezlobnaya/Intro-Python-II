@@ -1,7 +1,7 @@
 from room import Room
 
 # Declare all the rooms
-
+print(Room)
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
@@ -21,6 +21,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+print(room)
 
 # Link rooms together
 
