@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 print(Room)
@@ -21,7 +23,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-print(room)
 
 # Link rooms together
 
@@ -39,7 +40,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-# I have no idea what to write here
+player = Player(room['outside'])
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -50,3 +52,48 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+directions = ['n', 'e', 's', 'w']
+
+while True:
+    current_room = player.get_current_room()
+    north = current_room.n_to
+    east = current_room.e_to
+    south = current_room.s_to
+    west = current_room.w_to
+
+    print(current_room)
+    print(f'\n{player}')
+    print('\nDirecions Available:\n',f'North: {north.name}\n' if north else '', f'East: {east.name}\n' if east else '', f'South: {south.name}\n' if south else '', f'West: {west.name}\n' if west else '')
+
+
+    direction = input("Please enter a cardinal direction or enter q to quit the game: ")
+    try: 
+        if direction in directions:
+            if direction == 'n':
+                if north:
+                    player.set_current_room(north)
+                else:
+                    print('Can\'t go North')
+            if direction == 'e':
+                if east:
+                    player.set_current_room(east)
+                else:
+                    print('Can/t go East')
+            if direction == 's':
+                if south:
+                    player.set_current_room(south)
+                else:
+                    print('Can\'t go South')
+            if direction == 'w':
+                if west:
+                    player.set_current_room(west)
+                else:
+                    print('Can\'t go West')
+        if direction == 'q':
+                print('Bye for now')
+                break
+    except ValueError:
+        print("Please enter a cardinal direction")
+        
+
+
