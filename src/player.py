@@ -1,7 +1,8 @@
 # Write a class to hold player information, e.g. what room they are in
 # currently.
 class Player:
-    def __init__(self,current_room):
+    def __init__(self, name, current_room):
+        self.name = name
         self.current_room = current_room
 
     def get_current_room(self):
@@ -11,4 +12,6 @@ class Player:
         self.current_room = room
     
     def __str__(self):
-        return f"Player is in {self.current_room} room"
+        return f"Player {self.name} is in {self.current_room} room"
+    
+    
