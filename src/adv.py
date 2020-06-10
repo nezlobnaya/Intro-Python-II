@@ -83,8 +83,6 @@ while True:
     direction = input("Please enter a cardinal direction or enter q to quit the game: ")
     try: 
         if direction in directions:
-            if direction == None:
-                print("----Oops, you can't go there!----" )
             if direction == 'n':
                 if north:
                     player.set_current_room(north)
