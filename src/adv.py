@@ -40,7 +40,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player("Vlad", room['outside'])
+name = input("Please, enter player's name : ")
+player = Player(name, room['outside'])
 
 # Write a loop that:
 #
@@ -61,21 +62,22 @@ while True:
     south = current_room.s_to
     west = current_room.w_to
 
-    # print("""
-    # _______________________
-    # |         |-|   *****  |
-    # | Overlook|-| Treasure |
-    # |         |-|   *****  |
-    # |         |-|          | 
-    # +---   ---------   ----+
-    # |         |-|         |
-    # |         |-|         |
-    # |  Foyer       Narrow |
-    # |         |-|         |
-    # |---   ---------------+
-    # | outside |
-    # |         |""")
-    # print(current_room)
+    print("""a secret map:
+    _______________________
+    |         |-|   *****  |
+    | Overlook|-| Treasure |
+    |         |-|   *****  |
+    |         |-|          | 
+    +---   ---------   ----+
+    |         |-|         |
+    |         |-|         |
+    |  Foyer       Narrow |
+    |         |-|         |
+    |---   ---------------+
+    | outside |
+    |         |\n""")
+
+    print(current_room)
     print(f'\n{player}')
     # print('\nDirecions Available:\n',f'North: {north.name}\n' if north else '----Oops, you can/t go there!----', f'East: {east.name}\n' if east else '', f'South: {south.name}\n' if south else '', f'West: {west.name}\n' if west else '')
 
@@ -87,12 +89,12 @@ while True:
                 if north:
                     player.set_current_room(north)
                 else:
-                    print("Can't go North")
+                    print(" You can't go North")
             if direction == 'e':
                 if east:
                     player.set_current_room(east)
                 else:
-                    print("Can't go East")
+                    print("You can't go East")
             if direction == 's':
                 if south:
                     player.set_current_room(south)
@@ -102,9 +104,9 @@ while True:
                 if west:
                     player.set_current_room(west)
                 else:
-                    print("Can't go West")
+                    print("You can't go West")
         if direction == 'q':
-            print("By for now!")
+            print("Bye for now!")
             break
     except ValueError:
         print("Please enter a cardinal direction")
