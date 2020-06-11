@@ -22,5 +22,8 @@ class Room(Item):
         self.i_list.remove(i_name)
         return f"Room inventory: {self.i_list}"
 
+    def room_inventory(self):
+        return self.i_list 
+
     def __str__(self):
         return f"{self.name}:\n{self.description}"
