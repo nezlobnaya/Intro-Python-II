@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 import textwrap
 
 # Declare all the rooms
@@ -62,20 +63,20 @@ while True:
     south = current_room.s_to
     west = current_room.w_to
 
-    print("""a secret map:
-    _______________________
-    |         |-|   *****  |
-    | Overlook|-| Treasure |
-    |         |-|   *****  |
-    |         |-|          | 
-    +---   ---------   ----+
-    |         |-|         |
-    |         |-|         |
-    |  Foyer       Narrow |
-    |         |-|         |
-    |---   ---------------+
-    | outside |
-    |         |\n""")
+    # print("""a secret map:
+    # _______________________
+    # |         |-|   *****  |
+    # | Overlook|-| Treasure |
+    # |         |-|   *****  |
+    # |         |-|          | 
+    # +---   ---------   ----+
+    # |         |-|         |
+    # |         |-|         |
+    # |  Foyer       Narrow |
+    # |         |-|         |
+    # |---   ---------------+
+    # | outside |
+    # |         |\n""")
 
     print(current_room)
     print(f'\n{player}')
