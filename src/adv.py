@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
-from item import Item
-import textwrap
+# from item import Item
+
 
 # Declare all the rooms
 
@@ -23,8 +23,7 @@ to north. The smell of gold permeates the air."""),
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
-
-
+ 
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -44,6 +43,13 @@ room['treasure'].s_to = room['narrow']
 name = input("Please, enter player's name : ")
 player = Player(name, room['outside'])
 
+room['outside'].add_item('hatchet','add a power to the holder!')
+room['outside'].add_item('food','feed yourself!')
+room['foyer'].add_item('spell','add some magic to your powers!')
+room['overlook'].add_item('ring','how does it feel to be the Lord of the ring?')
+room['narrow'].add_item('spell','add some magic to your powers!')
+room['treasure'].add_item('energy','boost your powers!')
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -54,7 +60,7 @@ player = Player(name, room['outside'])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-directions = ['n', 'e', 's', 'w']
+directions = ['n', 'e', 's', 'w', 'get', 'drop', 'i', 'inventory']
 
 while True:
     current_room = player.get_current_room()
@@ -62,7 +68,7 @@ while True:
     east = current_room.e_to
     south = current_room.s_to
     west = current_room.w_to
-
+    room_inventory = current_room.room_inventory()
     # print("""a secret map:
     # _______________________
     # |         |-|   *****  |
@@ -73,18 +79,43 @@ while True:
     # |         |-|         |
     # |         |-|         |
     # |  Foyer       Narrow |
-    # |         |-|         |
+    # |         |-|         |vlad
     # |---   ---------------+
     # | outside |
     # |         |\n""")
 
     print(current_room)
     print(f'\n{player}')
+    if room_inventory == None:
+        print(f'\n ~*~*~ There are no artifacts in this room ~*~*~')
+    else:
+        print('\n~*~*~ The following artifacts are in the room  ~*~*~\n')
+        for i,y in room_inventory.items():
+            print(i,":",y)
+        print(f" ~*~ You can input 'get Item's name' to grab the item you want in the room or 'drop Item's name' right here any of those you carry with you. ~*~ ")
+        # print(f'\n ~*~*~ The following artifacts are in the room: {room_inventory}~*~*~')
+
     # print('\nDirecions Available:\n',f'North: {north.name}\n' if north else '----Oops, you can/t go there!----', f'East: {east.name}\n' if east else '', f'South: {south.name}\n' if south else '', f'West: {west.name}\n' if west else '')
 
 
     direction = input("Please enter a cardinal direction or enter q to quit the game: ")
+    directions_list = direction.split(' ')
+
     try: 
+        if len(directions_list) == 2:
+            item_input = directions_list[1]
+            if (directions_list[0] == 'get') or (directions_list[0] =='take'):
+                player.added_to_inventory(item_input)
+                player.on_take(item_input)
+            elif directions_list[0] != 'drop':
+                print('Wrong command')
+            if directions_list[0] == 'drop':
+                if item_input in player.player_inventory():
+                    player.remove_from_inventory(item_input)
+                    player.on_drop(item_input)
+                else:
+                    print("You don't have that item on you!")
+
         if direction in directions:
             if direction == 'n':
                 if north:
@@ -106,6 +137,9 @@ while True:
                     player.set_current_room(west)
                 else:
                     print("You can't go West")
+            if direction == 'i' or 'inventory':
+                print('You have the following items in your inventory:')
+                print(player.player_inventory())
         if direction == 'q':
             print("Bye for now!")
             break
